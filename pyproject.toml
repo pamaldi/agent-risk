@@ -1,0 +1,74 @@
+[project]
+name = "agent-risk"
+version = "0.1.0"
+description = "SemEval 2027 Task 10 (AgentRisk): livello di rischio, dominio, fattore e intervento guidato da policy per traiettorie di agenti LLM"
+readme = "README.md"
+authors = [
+    { name = "Pasquale Grimaldi", email = "pamaldi@yahoo.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    # dati
+    "huggingface-hub>=0.30",
+    "datasets>=3.0",
+    "pandas>=2.2",
+    "pyarrow>=17",
+    "numpy>=2.0",
+    "pydantic>=2.8",
+    # modelli classici, metriche, validazione incrociata per gruppi
+    "scikit-learn>=1.5",
+    "scipy>=1.13",
+    # parte simbolica: ASP (clingo) per policy e vincoli fra etichette
+    "clingo>=5.7",
+    # LLM via API
+    "anthropic>=0.50",
+    "tenacity>=9.0",
+    # utilita
+    "typer>=0.12",
+    "rich>=13.7",
+    "tqdm>=4.66",
+    "python-dotenv>=1.0",
+    "pyyaml>=6.0",
+]
+
+[project.scripts]
+agent-risk = "agent_risk.cli:app"
+
+[dependency-groups]
+# installato da `uv sync`
+dev = [
+    "pytest>=8.3",
+    "ruff>=0.6",
+    "ipykernel>=6.29",
+    "jupyterlab>=4.2",
+    "matplotlib>=3.9",
+    "seaborn>=0.13",
+]
+# modelli locali (8 GB di GPU: LLM piccoli quantizzati, encoder a contesto lungo)
+# installare con `uv sync --group ml`; per CUDA su Windows vedi docs/05-ambiente.md
+ml = [
+    "torch>=2.4",
+    "transformers>=4.45",
+    "accelerate>=1.0",
+    "peft>=0.13",
+    "sentence-transformers>=3.1",
+    "mapie>=1.0",
+]
+
+[tool.uv]
+default-groups = ["dev"]
+
+[build-system]
+requires = ["uv_build>=0.11.1,<0.12.0"]
+build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
