@@ -21,6 +21,7 @@ Stato esplicito σ(τ) = (obiettivo dell'utente, azione proposta, risorse coinvo
 3. Le policy di gara useranno solo livello, dominio e fattore o anche altri elementi (autorizzazione, reversibilità, informazione disponibile)?
 4. Il subtask 1 accetta livelli non interi?
 5. Propose Alternative compare nell'ordine di priorità ma in nessuna regola d'esempio: sarà usato nelle policy di gara?
+6. Qual è l'accordo fra annotatori su livello, domini e fattori? In AURA-Eval, degli stessi autori, l'accordo umano sul riconoscimento del rischio è basso (α 0,51): serve a capire il tetto raggiungibile.
 
 Stato: **nessuna domanda ancora inviata.** La registrazione della squadra non è fatta.
 
@@ -69,6 +70,13 @@ Giudizio: gruppo **scientificamente solido**, interlocutori seri; l'incertezza p
 
 **AURA-Eval** (Shang, Androna, Menis Mastromichalakis et al., *AURA-Eval: Evaluation Framework for Acting Under Risk Awareness in LLM Agent Trajectories*, preprint del 6 settembre 2026, <https://arxiv.org/abs/2609.06783>): 1.249 esempi da 157 traiettorie, 20 modelli, varianti con e senza modalità sicura. È un preprint; non è verificato che sia la base ufficiale del dataset AgentRisk.
 
+**Lettura del 7 novembre 2026** (versione 2 del 19 ottobre 2026; letti l'abstract e la prima metà del testo HTML, non le tabelle complete in appendice):
+
+- **Misura un'altra cosa.** AURA-Eval interrompe una traiettoria in un punto critico e chiede al modello di *continuarla* (prossimo pensiero e prossima azione), poi giudica se il comportamento è sicuro. AgentRisk invece chiede di *valutare* un'azione già proposta. I 1.249 esempi derivano da 157 traiettorie di R-Judge. Le etichette non coincidono: non ci sono livelli 1–5; i «domini» sono 5 aree applicative (Application, Finance, IoT, Program, Web); al posto dei fattori ci sono sei meccanismi di rischio (intensità del danno, portata, vulnerabilità del bersaglio, dipendenza dei sistemi, supervisione, reversibilità); i tipi di azione (esecuzione diretta, chiedere informazioni, chiedere conferma, raccogliere dati, proporre alternativa, rifiutare) somigliano agli interventi del subtask 3 ma non sono gli stessi. SemEval e AgentRisk non sono citati nella parte letta.
+- **Risultati principali** (20 modelli, fra cui Claude Opus 4.6 e Sonnet 4.6, GPT-5.4, Gemini 3.1 Pro): il migliore è Claude Sonnet 4.6 con il 16,9% di azioni non sicure; i modelli di frontiera agiscono in modo non sicuro nel 5–7% dei casi quando esiste una strada sicura e nel 27–40% quando non esiste; gli open-weight nel 58–83% dei casi senza strada sicura. Togliere la supervisione prima dell'esecuzione rende non sicuro il 52,3% dei casi prima sicuri.
+- **Accordo tra annotatori umani:** α di Krippendorff 0,76 sulla sicurezza dell'azione, 0,73 sul tipo di azione, solo 0,51 sul riconoscimento del rischio nel ragionamento. Il giudice (panel di LLM) concorda con le persone nel 76,5% dei casi.
+- **Che cosa serve ad AgentRisk.** (1) Non dà numeri confrontabili con i subtask 1, 2a e 2b: per sapere come va un LLM di frontiera su AgentRisk bisogna provarlo, o aspettare le baseline ufficiali. (2) Il giudizio sul rischio è poco condiviso anche fra persone: se vale anche per AgentRisk, c'è un tetto ai punteggi dovuto al disaccordo fra annotatori, che AgentRisk non pubblica (domanda da aggiungere agli organizzatori). (3) I sei meccanismi coincidono quasi esattamente con i criteri che le linee guida di AgentRisk danno per il livello (probabilità, intensità, portata, vulnerabilità, dipendenza, supervisione, reversibilità): stessa linea di ricerca, stessi autori.
+
 ## Bibliografia essenziale
 
 - Andriushchenko, M. et al. (2025). *AgentHarm: A Benchmark for Measuring Harmfulness of LLM Agents.* ICLR 2025. <https://arxiv.org/abs/2410.09024>
@@ -85,7 +93,7 @@ Giudizio: gruppo **scientificamente solido**, interlocutori seri; l'incertezza p
 ## Prossimi passi proposti (nessuno avviato)
 
 1. Baseline lessicale sull'ultimo passo, con validazione per gruppi di scenario.
-2. Baseline zero-shot con un LLM e le definizioni del sito; confronto con le baseline costanti.
+2. ~~Baseline zero-shot con un LLM e le definizioni del sito; confronto con le baseline costanti.~~ Fatta il 7 novembre 2026 su 100 traiettorie del train: Opus 5.5 rifiuta il 54%, Opus 4.8 ottiene MAE 0,28 e Jaccard 0,86 / 0,76 con errori sistematici ([09](09-baseline-llm.md)).
 3. Interventi di riferimento: policy d'esempio applicata alle etichette gold; verifica della propagazione dell'errore.
 4. Domande agli organizzatori sul Discord, poi decisione sull'ingresso fra gli impegni (al posto di ComPartMENT).
 5. Pilota di tre giornate ([04](04-pilota.md)) se si prosegue.

@@ -2,7 +2,7 @@
 
 Progetto di lavoro per **SemEval 2027, Task 10 — AgentRisk**: valutazione del rischio e intervento guidato da policy su traiettorie di agenti LLM. Creato il 7 novembre 2026 dall'archivio `ai-resources` (cartella `lavori/2026-09_semeval-2027`), dove restano le schede di valutazione complete.
 
-**Stato:** nessun esperimento eseguito. Il progetto contiene i dati, gli strumenti di base (caricamento, metriche ufficiali, baseline costanti, policy d'esempio in Python e in ASP) e la documentazione di tutto ciò che si è stabilito finora. La decisione di partecipare non è presa: vedi [docs/06-decisioni-e-domande-aperte.md](docs/06-decisioni-e-domande-aperte.md).
+**Stato:** eseguita una prima baseline zero-shot con LLM di frontiera su 100 traiettorie del train ([docs/09-baseline-llm.md](docs/09-baseline-llm.md)). Il progetto contiene i dati, gli strumenti di base (caricamento, metriche ufficiali, baseline costanti, policy d'esempio in Python e in ASP, baseline con Claude via API) e la documentazione di tutto ciò che si è stabilito finora. La decisione di partecipare non è presa: vedi [docs/06-decisioni-e-domande-aperte.md](docs/06-decisioni-e-domande-aperte.md).
 
 ## Avvio in PyCharm
 
@@ -33,7 +33,7 @@ uv run agent-risk stats
 uv run agent-risk baselines
 ```
 
-`uv sync` crea `.venv` con le librerie di base e di sviluppo; `download_data.py` scarica il dataset in `data/raw` (già fatto) e fissa la revisione; `pytest` esegue 9 test; gli ultimi due comandi stampano le statistiche di train e dev e le baseline costanti sul dev.
+`uv sync` crea `.venv` con le librerie di base e di sviluppo; `download_data.py` scarica il dataset in `data/raw` (già fatto) e fissa la revisione; `pytest` esegue 13 test; gli ultimi due comandi stampano le statistiche di train e dev e le baseline costanti sul dev.
 
 ## Contenuto
 
@@ -46,7 +46,9 @@ uv run agent-risk baselines
 | `src/agent_risk/metrics.py` | MAE, Jaccard medio, F1 dell'intervento |
 | `src/agent_risk/baselines.py` | baseline costanti |
 | `src/agent_risk/policy.py` e `asp/` | policy d'esempio in Python e in ASP (clingo), con test di equivalenza |
+| `src/agent_risk/llm.py` | baseline zero-shot con Claude via API: prompt, schema di uscita, chiamata, normalizzazione |
 | `scripts/download_data.py` | scarica il dataset e registra la revisione |
+| `scripts/llm_zero_shot.py` | baseline con LLM: stima del costo, esecuzione (solo con `--confirm`), metriche ([docs/09](docs/09-baseline-llm.md)) |
 | `notebooks/` | esplorazione (vuota) |
 | `runs/` | predizioni e log degli esperimenti (ignorata da git) |
 

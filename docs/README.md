@@ -12,5 +12,6 @@ Riassume tutto ciò che è stato discusso e stabilito su AgentRisk fino al 7 nov
 | [06-decisioni-e-domande-aperte.md](06-decisioni-e-domande-aperte.md) | decisioni, ipotesi, domande agli organizzatori, organizzatori e letteratura, idee scartate o rimandate (diffusion model, baseline lessicale) |
 | [07-test-e-indicatori.md](07-test-e-indicatori.md) | i 9 test automatici (che cosa verificano e che cosa no), spiegazione di MAE, Jaccard, F1, baseline e statistiche sui dati |
 | [08-policy.md](08-policy.md) | la policy del subtask 3 da zero: regole, priorità, default, una policy alternativa a confronto, due record reali del dataset con la policy applicata regola per regola |
+| [09-baseline-llm.md](09-baseline-llm.md) | baseline zero-shot con Claude Opus 5.5, 4.8 e 4.6 su 100 traiettorie: rifiuti di Opus 5.5, risultati di Opus 4.8, errori sistematici, costi |
 
-Convenzione: ciò che è **verificato sui dati o sul sito** è scritto come fatto; ciò che è **proposta o ipotesi** è dichiarato tale. Nessun esperimento è stato ancora eseguito.
+Convenzione: ciò che è **verificato sui dati o sul sito** è scritto come fatto; ciò che è **proposta o ipotesi** è dichiarato tale. L'unico esperimento eseguito finora è la baseline zero-shot con LLM del 7 novembre 2026 ([09](09-baseline-llm.md)); il pilota ([04](04-pilota.md)) non è ancora stato fatto.
